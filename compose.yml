@@ -1,0 +1,160 @@
+radarr:
+  container_name: radarr
+  entrypoint:
+    - /init
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=Asia/Tokyo
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - HOME=/root
+    - LANGUAGE=en_US.UTF-8
+    - LANG=en_US.UTF-8
+    - TERM=xterm
+    - XDG_CONFIG_HOME=/config/xdg
+  expose:
+    - 7878/tcp
+  hostname: JK-Laptop
+  image: linuxserver/radarr
+  ipc: shareable
+  labels:
+    MAINTAINER: sparkyballs,TheLamer
+    build_version: 'Linuxserver.io version:- v0.2.0.1344-ls19 Build-date:- 2019-06-05T19:44:11+00:00'
+    maintainer: sparklyballs
+  log_driver: json-file
+  net: host
+  restart: unless-stopped
+  volumes:
+    - /mnt/Orange/docker/radarr/config:/config
+    - /mnt/Orange/Downloads:/mnt/Orange/Downloads
+sonarr:
+  container_name: sonarr
+  entrypoint:
+    - /init
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=Asia/Tokyo
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - HOME=/root
+    - LANGUAGE=en_US.UTF-8
+    - LANG=en_US.UTF-8
+    - TERM=xterm
+    - XDG_CONFIG_HOME=/config/xdg
+    - SONARR_BRANCH=master
+  expose:
+    - 8989/tcp
+  hostname: JK-Laptop
+  image: linuxserver/sonarr
+  ipc: shareable
+  labels:
+    MAINTAINER: sparkyballs,TheLamer
+    build_version: 'Linuxserver.io version:- 2.0.0.5322-ls20 Build-date:- 2019-06-13T07:34:18+00:00'
+    maintainer: sparklyballs
+  log_driver: json-file
+  net: host
+  restart: unless-stopped
+  volumes:
+    - /mnt/Orange/docker/sonarr/config:/config
+    - /mnt/Orange/Downloads:/mnt/Orange/Downloads
+qbittorrent:
+  container_name: qbittorrent
+  entrypoint:
+    - /init
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=Asia/Tokyo
+    - UMASK_SET=022
+    - WEBUI_PORT=8080
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - HOME=/config
+    - LANGUAGE=en_US.UTF-8
+    - LANG=en_US.UTF-8
+    - TERM=xterm
+    - XDG_CONFIG_HOME=/config
+    - XDG_DATA_HOME=/config
+  hostname: 4a3adb120d18
+  image: linuxserver/qbittorrent
+  ipc: shareable
+  labels:
+    MAINTAINER: sparkyballs,TheLamer
+    build_version: 'Linuxserver.io version:- 4.1.6.99201906041834-6705-ad7b8a9ubuntu18.04.1-ls27
+      Build-date:- 2019-06-12T04:01:47+00:00'
+    maintainer: 'sparklyballs, thelamer'
+  log_driver: json-file
+  mac_address: 02:42:ac:11:00:02
+  ports:
+    - 8080:8080/tcp
+    - 6881:6881/udp
+    - 6881:6881/tcp
+  restart: unless-stopped
+  volumes:
+    - /mnt/Orange/docker/qbittorrent/config:/config
+    - /mnt/Orange/Downloads/:/mnt/Orange/Downloads
+
+jackett:
+  container_name: jackett
+  entrypoint:
+    - /init
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=Asia/Tokyo
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - HOME=/root
+    - LANGUAGE=en_US.UTF-8
+    - LANG=en_US.UTF-8
+    - TERM=xterm
+    - XDG_DATA_HOME=/config
+    - XDG_CONFIG_HOME=/config
+  expose:
+    - 9117/tcp
+  hostname: JK-Laptop
+  image: linuxserver/jackett
+  ipc: shareable
+  labels:
+    MAINTAINER: sparkyballs,TheLamer
+    build_version: 'Linuxserver.io version:- v0.11.409-ls25 Build-date:- 2019-06-11T21:07:24+00:00'
+    maintainer: sparklyballs
+  log_driver: json-file
+  net: host
+  restart: unless-stopped
+  volumes:
+    - /mnt/Orange/docker/jackett/config:/config
+    - /mnt/Orange/Downloads:/mnt/Orange/Downloads
+plex:
+  container_name: plex
+  entrypoint:
+    - /init
+  environment:
+    - TZ=Asia/Tokyo
+    - PUID=1000
+    - PGID=1000
+    - PLEX_CLAIM=
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - TERM=xterm
+    - LANG=C.UTF-8
+    - LC_ALL=C.UTF-8
+    - CHANGE_CONFIG_DIR_OWNERSHIP=true
+    - HOME=/config
+  expose:
+    - 1900/udp
+    - 32410/udp
+    - 32469/tcp
+    - 32413/udp
+    - 32412/udp
+    - 32414/udp
+    - 3005/tcp
+    - 32400/tcp
+    - 8324/tcp
+  hostname: JK-Laptop
+  image: plexinc/pms-docker
+  ipc: shareable
+  log_driver: json-file
+  net: host
+  restart: always
+  volumes:
+    - /mnt/Orange/docker/plex/config:/config
+    - /mnt/Orange/Downloads/Movies:/mnt/Orange/Downloads/Movies
+    - /mnt/Orange/Downloads/TVShows:/mnt/Orange/Downloads/TVShows
